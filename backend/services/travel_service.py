@@ -163,6 +163,12 @@ def search_flights(
     try:
         data    = _get(params)
         raw     = data.get("best_flights", []) + data.get("other_flights", [])
+
+        # Debug: print first offer so we can see the real structure
+        if raw:
+            print(f"[SerpAPI Flights] First offer keys: {list(raw[0].keys())}")
+            print(f"[SerpAPI Flights] price field raw value: {raw[0].get('price')!r}")
+
         flights = []
 
         for offer in raw[:5]:
@@ -177,7 +183,25 @@ def search_flights(
             logo_url     = first_seg.get("airline_logo", "")
             airline_code = _airline_code_from_logo(logo_url) or airline_name[:2].upper()
 
-            price       = float(offer.get("price", 0))
+            # ── Robust price extraction ───────────────────────────────────────
+            # SerpAPI may return price as: int, float, "$618" string, or a dict
+            raw_price = offer.get("price") or offer.get("price_total") or 0
+            if isinstance(raw_price, (int, float)):
+                price = float(raw_price)
+            elif isinstance(raw_price, str):
+                # Strip currency symbols, commas: "$1,234" → 1234.0
+                price = float(raw_price.replace("$", "").replace(",", "").strip() or 0)
+            elif isinstance(raw_price, dict):
+                # Some engines nest: {"extracted": 618, "formatted": "$618"}
+                price = float(
+                    raw_price.get("extracted")
+                    or raw_price.get("value")
+                    or raw_price.get("total")
+                    or 0
+                )
+            else:
+                price = 0.0
+
             total_mins  = int(offer.get("total_duration", 0))
             stops       = len(segments) - 1
             dep_time    = _fmt_time(first_seg.get("departure_airport", {}).get("time", ""))
@@ -189,7 +213,7 @@ def search_flights(
                 "airline_code":    airline_code,
                 "airline_logo":    logo_url,
                 "price_total":     round(price, 2),
-                "price_per_person":round(price / adults, 2),
+                "price_per_person":round(price / adults, 2) if adults else round(price, 2),
                 "departure_time":  dep_time,
                 "arrival_time":    arr_time,
                 "duration":        _fmt_duration(total_mins),
