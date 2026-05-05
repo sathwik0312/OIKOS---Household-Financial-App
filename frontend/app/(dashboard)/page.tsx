@@ -10,6 +10,7 @@ import MemberSpending from "@/components/dashboard/MemberSpending";
 import UpcomingExpenses from "@/components/dashboard/UpcomingExpenses";
 import PlaidConnect from "@/components/dashboard/PlaidConnect";
 import HouseholdSetup from "@/components/dashboard/HouseholdSetup";
+import UpcomingTrips from "@/components/dashboard/UpcomingTrips";
 
 type PageState = "loading" | "no-household" | "setup-needed" | "ready";
 
@@ -205,6 +206,7 @@ export default function DashboardPage() {
           expenses={budgetStatus?.upcoming_committed ?? []}
           loading={budgetLoading}
         />
+        <UpcomingTrips />
       </div>
     </div>
   );

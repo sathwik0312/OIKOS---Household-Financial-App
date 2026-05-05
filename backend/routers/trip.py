@@ -45,6 +45,42 @@ async def estimate_trip(
     return result
 
 
+@router.get("/upcoming")
+async def get_upcoming_trips(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    from models.household import PlannedTrip
+    if not current_user.household_id:
+        return {"trips": []}
+    today = date.today().isoformat()
+    trips = (
+        db.query(PlannedTrip)
+        .filter(
+            PlannedTrip.household_id == current_user.household_id,
+            PlannedTrip.end_date >= today,
+        )
+        .order_by(PlannedTrip.start_date)
+        .all()
+    )
+    return {
+        "trips": [
+            {
+                "id":               t.id,
+                "title":            t.title,
+                "destination":      t.destination,
+                "start_date":       t.start_date,
+                "end_date":         t.end_date,
+                "total_cost":       t.total_cost,
+                "calendar_event_id":t.calendar_event_id,
+                "status":           t.status,
+                "days_until":       (date.fromisoformat(t.start_date) - date.today()).days,
+            }
+            for t in trips
+        ]
+    }
+
+
 @router.get("/city-search")
 async def city_search(
     q: str = Query(..., min_length=2),

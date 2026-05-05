@@ -6,21 +6,26 @@ import FlightCard          from "@/components/cards/FlightCard";
 import HotelCard           from "@/components/cards/HotelCard";
 import RestaurantCard      from "@/components/cards/RestaurantCard";
 import TripSummaryCard     from "@/components/cards/TripSummaryCard";
+import PlanConfirmation, { type ConfirmationCard } from "@/components/chat/PlanConfirmation";
+import type { TripMeta } from "@/lib/types";
 
 export interface Message {
-  role: "user" | "assistant";
-  content: string;
-  tool_used?: string | null;
-  tool_result?: any | null;
+  role:               "user" | "assistant";
+  content:            string;
+  tool_used?:         string | null;
+  tool_result?:       any | null;
+  confirmation_card?: ConfirmationCard | null;
+  trip_builder?:      TripMeta | null;
 }
 
 const TOOL_ICONS: Record<string, React.ElementType> = {
-  search_flights:          Plane,
-  search_hotels:           Hotel,
-  search_restaurants:      UtensilsCrossed,
-  reallocate_budget:       ArrowLeftRight,
-  create_calendar_event:   Calendar,
-  send_family_notification:Bell,
+  search_flights:           Plane,
+  search_hotels:            Hotel,
+  search_restaurants:       UtensilsCrossed,
+  reallocate_budget:        ArrowLeftRight,
+  create_calendar_event:    Calendar,
+  send_family_notification: Bell,
+  confirm_trip:             Calendar,
 };
 
 const TOOL_LABELS: Record<string, string> = {
@@ -30,6 +35,7 @@ const TOOL_LABELS: Record<string, string> = {
   reallocate_budget:        "Updating budget",
   create_calendar_event:    "Adding to calendar",
   send_family_notification: "Sending notification",
+  confirm_trip:             "Confirming trip plan",
 };
 
 function ToolPill({ tool }: { tool: string }) {
@@ -139,8 +145,11 @@ export default function MessageBubble({ message }: { message: Message }) {
               {message.content}
             </ReactMarkdown>
           </div>
-          {message.tool_used && message.tool_result && (
+          {message.tool_used && message.tool_result && message.tool_used !== "confirm_trip" && (
             <ToolResultCard tool={message.tool_used} result={message.tool_result} />
+          )}
+          {message.confirmation_card && (
+            <PlanConfirmation card={message.confirmation_card} />
           )}
         </div>
       </div>

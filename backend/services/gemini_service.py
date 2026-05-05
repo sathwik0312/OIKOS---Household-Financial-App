@@ -7,7 +7,7 @@ from google import genai
 from google.genai import types
 from sqlalchemy.orm import Session
 from models.household import Household, User
-from services import budget_service, travel_service, yelp_service
+from services import budget_service, travel_service, yelp_service, calendar_service, twilio_service
 
 load_dotenv()
 
@@ -58,6 +58,10 @@ Overspent categories: {overspent}
 - search_restaurants: {{"location": "Austin, TX", "budget_per_person": 30, "party_size": 4}}
 - reallocate_budget: {{"from_category": "leisure", "to_category": "travel", "amount": 200}}
 - create_calendar_event: {{"title": "Austin Trip", "start": "2026-05-10", "end": "2026-05-12", "description": "..."}}
+- start_trip_builder: {{"destination": "Austin, TX", "destination_iata": "AUS", "origin_iata": "{home_iata}", "departure_date": "2026-05-10", "return_date": "2026-05-12", "travelers": 2, "nights": 2, "budget_available": 1520}}
+  Use this when the user clearly states a trip destination WITH dates (or relative dates like "this weekend", "next weekend", "in 2 weeks" — resolve to actual YYYY-MM-DD using today's date). This launches the interactive step-by-step Trip Builder inside the chat. Extract: destination IATA code, use USER_HOME_IATA as origin, resolve dates, default travelers=2, nights = return_date - departure_date in days, budget_available from travel remaining.
+- confirm_trip: {{"title": "Austin Trip", "destination": "Austin, TX", "start_date": "2026-05-10", "end_date": "2026-05-12", "flight_info": "Southwest $189/pp", "hotel_info": "Hampton Inn $129/night", "flight_cost": 378, "hotel_cost": 258, "food_estimate": 400, "estimated_cost": 1036, "party_size": 2}}
+  Use this when the user says "yes", "let's do it", "confirm", or "book it" and you have a complete trip plan but did NOT go through Trip Builder.
 - send_family_notification: {{"message": "Trip to Austin confirmed!"}}
 """
 
@@ -98,6 +102,7 @@ def build_system_prompt(household_id: str, db: Session) -> str:
             health=status["health"].upper(),
             overspent=", ".join(status["overspent_categories"]) or "none",
             members=member_names,
+            home_iata=os.getenv("USER_HOME_IATA", "JFK"),
         )
     except Exception as e:
         print(f"[Gemini] System prompt build error: {e}")
@@ -165,13 +170,55 @@ def dispatch_tool(tool_name: str, params: dict, household_id: str, db: Session) 
         except Exception as e:
             return {"tool": "reallocate_budget", "success": False, "error": str(e)}
 
+    elif tool_name == "start_trip_builder":
+        meta = {
+            "destination":      params.get("destination", ""),
+            "destination_iata": params.get("destination_iata", ""),
+            "origin_iata":      params.get("origin_iata", os.getenv("USER_HOME_IATA", "JFK")),
+            "departure_date":   params.get("departure_date", ""),
+            "return_date":      params.get("return_date", ""),
+            "travelers":        int(params.get("travelers", 2)),
+            "nights":           int(params.get("nights", 2)),
+            "budget_available": float(params.get("budget_available", 0)),
+        }
+        return {"tool": "start_trip_builder", "trip_builder": meta}
+
+    elif tool_name == "confirm_trip":
+        card = {
+            "title":          params.get("title", "Trip Plan"),
+            "destination":    params.get("destination", ""),
+            "start_date":     params.get("start_date", ""),
+            "end_date":       params.get("end_date", ""),
+            "flight_info":    params.get("flight_info", ""),
+            "hotel_info":     params.get("hotel_info", ""),
+            "flight_cost":    float(params.get("flight_cost", 0)),
+            "hotel_cost":     float(params.get("hotel_cost", 0)),
+            "food_estimate":  float(params.get("food_estimate", 0)),
+            "estimated_cost": float(params.get("estimated_cost", 0)),
+            "party_size":     int(params.get("party_size", 2)),
+            "notes":          params.get("notes", ""),
+        }
+        return {"tool": "confirm_trip", "confirmation_card": card}
+
     elif tool_name == "create_calendar_event":
-        return {"tool": "create_calendar_event", "success": True,
-                "message": "Calendar event created (PRD-05 will make it real)"}
+        if household_id:
+            try:
+                result = calendar_service.create_trip_event(household_id, params, db)
+                return {"tool": "create_calendar_event", **result}
+            except Exception as e:
+                return {"tool": "create_calendar_event", "success": False, "error": str(e)}
+        return {"tool": "create_calendar_event", "success": False, "error": "No household"}
 
     elif tool_name == "send_family_notification":
-        return {"tool": "send_family_notification", "success": True,
-                "message": "Notification sent (PRD-05 will send real WhatsApp/SMS)"}
+        if household_id:
+            try:
+                result = twilio_service.send_trip_confirmation(
+                    household_id, params, params.get("calendar_link", ""), db
+                )
+                return {"tool": "send_family_notification", **result}
+            except Exception as e:
+                return {"tool": "send_family_notification", "success": False, "error": str(e)}
+        return {"tool": "send_family_notification", "success": False, "error": "No household"}
 
     return {"tool": tool_name, "error": "Unknown tool"}
 
@@ -266,28 +313,38 @@ def chat(
     tool_used   = None
     tool_result = None
 
-    tool_call = _extract_tool_call(reply_text)
+    tool_call         = _extract_tool_call(reply_text)
+    confirmation_card = None
+    trip_builder      = None
+
     if tool_call:
         tool_name   = tool_call["tool"]
         params      = tool_call.get("params", {})
         tool_used   = tool_name
         tool_result = dispatch_tool(tool_name, params, household_id, db)
 
-        # Second call: send tool result back for natural language response
-        tool_context = (
-            f"Tool result for {tool_name}:\n```json\n{json.dumps(tool_result, indent=2)}\n```\n"
-            "Now give your final natural-language response to the user based on this data. "
-            "Reference specific numbers and dollar amounts. Do not output JSON."
-        )
-        contents.append(types.Content(role="model",  parts=[types.Part(text=reply_text)]))
-        contents.append(types.Content(role="user",   parts=[types.Part(text=tool_context)]))
+        # Extract special response payloads
+        if tool_result and "confirmation_card" in tool_result:
+            confirmation_card = tool_result["confirmation_card"]
+        if tool_result and "trip_builder" in tool_result:
+            trip_builder = tool_result["trip_builder"]
 
-        response2 = _client.models.generate_content(
-            model="gemini-3.1-flash-lite-preview",
-            contents=contents,
-            config=config,
-        )
-        reply_text = response2.text
+        # These tools don't need a second Gemini call — first reply is already natural language
+        if tool_name not in ("confirm_trip", "start_trip_builder"):
+            tool_context = (
+                f"Tool result for {tool_name}:\n```json\n{json.dumps(tool_result, indent=2)}\n```\n"
+                "Now give your final natural-language response to the user based on this data. "
+                "Reference specific numbers and dollar amounts. Do not output JSON."
+            )
+            contents.append(types.Content(role="model", parts=[types.Part(text=reply_text)]))
+            contents.append(types.Content(role="user",  parts=[types.Part(text=tool_context)]))
+
+            response2 = _client.models.generate_content(
+                model="gemini-3.1-flash-lite-preview",
+                contents=contents,
+                config=config,
+            )
+            reply_text = response2.text
 
     updated_history = trimmed + [
         {"role": "user",      "content": user_message},
@@ -295,8 +352,10 @@ def chat(
     ]
 
     return {
-        "reply":           reply_text,
-        "updated_history": updated_history,
-        "tool_used":       tool_used,
-        "tool_result":     tool_result,
+        "reply":             reply_text,
+        "updated_history":   updated_history,
+        "tool_used":         tool_used,
+        "tool_result":       tool_result,
+        "confirmation_card": confirmation_card,
+        "trip_builder":      trip_builder,
     }

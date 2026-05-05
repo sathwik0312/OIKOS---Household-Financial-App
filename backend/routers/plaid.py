@@ -117,6 +117,20 @@ async def get_budget_status(
 
     try:
         status = budget_service.calculate_budget_status(current_user.household_id, month, db)
+        # Fire budget alerts when any category crosses 90%
+        try:
+            from services import twilio_service
+            import calendar as _cal
+            today = date.today()
+            days_left = _cal.monthrange(today.year, today.month)[1] - today.day
+            for cat, data in status.get("budgets", {}).items():
+                if data.get("percent", 0) >= 90:
+                    twilio_service.send_budget_alert(
+                        current_user.household_id, cat,
+                        data["percent"], data["remaining"], days_left, db,
+                    )
+        except Exception:
+            pass  # Never let alert logic crash the status endpoint
         return status
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -39,4 +39,9 @@ yarn-error.log*
 PRD-*.md
 context.md
 
+# Cursor AI / LLM instruction files
+AGENTS.md
+CLAUDE.md
+*.canvas.tsx
+
 # Frontend-level gitignore already covers frontend subfolder

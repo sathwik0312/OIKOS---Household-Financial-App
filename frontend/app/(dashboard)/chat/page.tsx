@@ -7,6 +7,8 @@ import type { BudgetStatus, BudgetCategory } from "@/lib/types";
 import ChatWindow from "@/components/chat/ChatWindow";
 import ChatInput from "@/components/chat/ChatInput";
 import type { Message } from "@/components/chat/MessageBubble";
+import dynamic from "next/dynamic";
+const TripBuilder = dynamic(() => import("@/components/trip-builder/TripBuilder"), { ssr: false });
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -300,8 +302,15 @@ export default function ChatPage() {
         message: text,
         conversation_history: history,
       });
-      const { reply, updated_history, tool_used, tool_result } = res.data;
-      const assistantMsg: Message = { role: "assistant", content: reply, tool_used: tool_used ?? null, tool_result: tool_result ?? null };
+      const { reply, updated_history, tool_used, tool_result, confirmation_card, trip_builder } = res.data;
+      const assistantMsg: Message = {
+        role:               "assistant",
+        content:            reply,
+        tool_used:          tool_used         ?? null,
+        tool_result:        tool_result       ?? null,
+        confirmation_card:  confirmation_card ?? null,
+        trip_builder:       trip_builder      ?? null,
+      };
 
       setConversations((prev) =>
         prev.map((c) =>
@@ -391,15 +400,33 @@ export default function ChatPage() {
           </button>
         </div>
 
-        {/* Messages */}
+        {/* Messages + optional TripBuilder */}
         <ChatWindow
           messages={messages}
           loading={loading}
           onSelectPrompt={sendMessage}
         />
 
-        {/* Input */}
-        <ChatInput onSend={sendMessage} loading={loading} />
+        {/* TripBuilder — shown when latest assistant message has trip_builder */}
+        {(() => {
+          const last = messages[messages.length - 1];
+          if (last?.role === "assistant" && last.trip_builder) {
+            return (
+              <div className="px-4 pb-4">
+                <TripBuilder
+                  tripMeta={last.trip_builder}
+                  onDone={() => {}}
+                />
+              </div>
+            );
+          }
+          return null;
+        })()}
+
+        {/* Input — hidden while TripBuilder is active */}
+        {!messages[messages.length - 1]?.trip_builder && (
+          <ChatInput onSend={sendMessage} loading={loading} />
+        )}
       </div>
     </div>
   );

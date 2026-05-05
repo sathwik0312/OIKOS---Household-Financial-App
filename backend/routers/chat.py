@@ -36,6 +36,8 @@ async def send_message(
             user_message=body.message.strip(),
             db=db,
         )
+        result.setdefault("confirmation_card", None)
+        result.setdefault("trip_builder", None)
         return result
     except Exception as e:
         print(f"[Chat] Gemini error: {e}")
