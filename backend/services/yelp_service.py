@@ -4,6 +4,8 @@ File kept as yelp_service.py so no other files need changing.
 Function signatures are identical to the original Yelp implementation.
 """
 
+from __future__ import annotations
+
 import os
 import httpx
 from dotenv import load_dotenv

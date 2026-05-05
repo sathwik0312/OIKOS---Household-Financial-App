@@ -4,6 +4,8 @@ Function signatures match PRD-03 exactly.
 All API calls use httpx against https://serpapi.com/search.
 """
 
+from __future__ import annotations
+
 import os
 import httpx
 from dotenv import load_dotenv
