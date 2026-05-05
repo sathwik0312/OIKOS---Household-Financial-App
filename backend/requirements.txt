@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+plaid-python
+sqlalchemy
+python-dotenv
+httpx
+clerk-backend-api
+python-jose[cryptography]
+cryptography
+pydantic
+alembic
+python-multipart
+google-genai

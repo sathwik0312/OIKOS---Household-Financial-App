@@ -1,0 +1,124 @@
+{
+  "scenarios": {
+    "A": {
+      "description": "Dining at risk, travel healthy, good for trip planning with a warning",
+      "budgets": {
+        "travel": 500,
+        "dining": 300,
+        "groceries": 400,
+        "leisure": 200,
+        "utilities": 250
+      },
+      "transactions": [
+        { "id": "A001", "merchant_name": "Delta Airlines", "amount": 189.50, "plaid_category": ["Airlines and Aviation", "Travel"], "day": 3 },
+        { "id": "A002", "merchant_name": "Uber", "amount": 24.75, "plaid_category": ["Ride Share", "Car Service"], "day": 5 },
+        { "id": "A003", "merchant_name": "Lyft", "amount": 18.40, "plaid_category": ["Ride Share", "Car Service"], "day": 9 },
+        { "id": "A004", "merchant_name": "Marriott Hotels", "amount": 52.80, "plaid_category": ["Hotels", "Lodging", "Travel"], "day": 12 },
+        { "id": "A005", "merchant_name": "Chipotle Mexican Grill", "amount": 38.20, "plaid_category": ["Restaurants", "Food and Drink"], "day": 2 },
+        { "id": "A006", "merchant_name": "Starbucks", "amount": 14.50, "plaid_category": ["Coffee Shop", "Food and Drink"], "day": 4 },
+        { "id": "A007", "merchant_name": "Olive Garden", "amount": 67.80, "plaid_category": ["Restaurants", "Food and Drink"], "day": 7 },
+        { "id": "A008", "merchant_name": "McDonald's", "amount": 22.40, "plaid_category": ["Fast Food", "Food and Drink"], "day": 10 },
+        { "id": "A009", "merchant_name": "Cheesecake Factory", "amount": 94.30, "plaid_category": ["Restaurants", "Food and Drink"], "day": 14 },
+        { "id": "A010", "merchant_name": "Dunkin Donuts", "amount": 11.20, "plaid_category": ["Coffee Shop", "Food and Drink"], "day": 17 },
+        { "id": "A011", "merchant_name": "Buffalo Wild Wings", "amount": 58.90, "plaid_category": ["Restaurants", "Bar", "Food and Drink"], "day": 19 },
+        { "id": "A012", "merchant_name": "Whole Foods Market", "amount": 127.40, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 3 },
+        { "id": "A013", "merchant_name": "Trader Joe's", "amount": 84.20, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 11 },
+        { "id": "A014", "merchant_name": "Kroger", "amount": 63.50, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 18 },
+        { "id": "A015", "merchant_name": "AMC Theaters", "amount": 48.00, "plaid_category": ["Movies", "Entertainment", "Recreation"], "day": 6 },
+        { "id": "A016", "merchant_name": "Spotify", "amount": 15.99, "plaid_category": ["Music", "Entertainment"], "day": 1 },
+        { "id": "A017", "merchant_name": "Netflix", "amount": 22.99, "plaid_category": ["Entertainment", "Recreation"], "day": 1 },
+        { "id": "A018", "merchant_name": "TopGolf", "amount": 85.00, "plaid_category": ["Sports", "Recreation", "Entertainment"], "day": 15 },
+        { "id": "A019", "merchant_name": "AT&T", "amount": 95.00, "plaid_category": ["Telecommunication Services", "Utilities"], "day": 5 },
+        { "id": "A020", "merchant_name": "Xfinity Internet", "amount": 79.99, "plaid_category": ["Internet Services", "Utilities"], "day": 5 },
+        { "id": "A021", "merchant_name": "City Electric Utility", "amount": 74.80, "plaid_category": ["Utilities"], "day": 8 },
+        { "id": "A022", "merchant_name": "Geico Insurance", "amount": 112.00, "plaid_category": ["Insurance", "Utilities"], "day": 2 },
+        { "id": "A023", "merchant_name": "Panda Express", "amount": 31.60, "plaid_category": ["Fast Food", "Food and Drink"], "day": 20 },
+        { "id": "A024", "merchant_name": "Costco Wholesale", "amount": 98.30, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 16 },
+        { "id": "A025", "merchant_name": "Shell Gas Station", "amount": 18.20, "plaid_category": ["Ride Share", "Travel"], "day": 13 }
+      ]
+    },
+    "B": {
+      "description": "Utilities critical, dining healthy, leisure open, great for showing recovery on utilities and open trip budget",
+      "budgets": {
+        "travel": 500,
+        "dining": 300,
+        "groceries": 400,
+        "leisure": 200,
+        "utilities": 250
+      },
+      "transactions": [
+        { "id": "B001", "merchant_name": "Southwest Airlines", "amount": 312.40, "plaid_category": ["Airlines and Aviation", "Travel"], "day": 4 },
+        { "id": "B002", "merchant_name": "Hertz Car Rental", "amount": 98.00, "plaid_category": ["Car Service", "Travel"], "day": 6 },
+        { "id": "B003", "merchant_name": "Uber", "amount": 31.20, "plaid_category": ["Ride Share", "Car Service"], "day": 14 },
+        { "id": "B004", "merchant_name": "Taco Bell", "amount": 18.90, "plaid_category": ["Fast Food", "Food and Drink"], "day": 3 },
+        { "id": "B005", "merchant_name": "Starbucks", "amount": 12.40, "plaid_category": ["Coffee Shop", "Food and Drink"], "day": 7 },
+        { "id": "B006", "merchant_name": "Panera Bread", "amount": 29.80, "plaid_category": ["Restaurants", "Food and Drink"], "day": 10 },
+        { "id": "B007", "merchant_name": "Texas Roadhouse", "amount": 74.20, "plaid_category": ["Restaurants", "Food and Drink"], "day": 16 },
+        { "id": "B008", "merchant_name": "Chick-fil-A", "amount": 24.30, "plaid_category": ["Fast Food", "Food and Drink"], "day": 19 },
+        { "id": "B009", "merchant_name": "Whole Foods Market", "amount": 148.60, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 5 },
+        { "id": "B010", "merchant_name": "Publix", "amount": 112.40, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 12 },
+        { "id": "B011", "merchant_name": "Sam's Club", "amount": 87.30, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 18 },
+        { "id": "B012", "merchant_name": "Aldi", "amount": 54.20, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 20 },
+        { "id": "B013", "merchant_name": "Regal Cinemas", "amount": 36.00, "plaid_category": ["Movies", "Entertainment", "Recreation"], "day": 8 },
+        { "id": "B014", "merchant_name": "Spotify", "amount": 15.99, "plaid_category": ["Music", "Entertainment"], "day": 1 },
+        { "id": "B015", "merchant_name": "Disney Plus", "amount": 13.99, "plaid_category": ["Entertainment", "Recreation"], "day": 1 },
+        { "id": "B016", "merchant_name": "Verizon Wireless", "amount": 145.00, "plaid_category": ["Telecommunication Services", "Utilities"], "day": 3 },
+        { "id": "B017", "merchant_name": "Comcast Xfinity", "amount": 89.99, "plaid_category": ["Internet Services", "Utilities"], "day": 3 },
+        { "id": "B018", "merchant_name": "Duke Energy", "amount": 124.80, "plaid_category": ["Utilities"], "day": 7 },
+        { "id": "B019", "merchant_name": "State Farm Insurance", "amount": 168.00, "plaid_category": ["Insurance", "Utilities"], "day": 2 },
+        { "id": "B020", "merchant_name": "American Water Works", "amount": 48.50, "plaid_category": ["Utilities"], "day": 9 },
+        { "id": "B021", "merchant_name": "Lyft", "amount": 22.80, "plaid_category": ["Ride Share", "Car Service"], "day": 17 },
+        { "id": "B022", "merchant_name": "Subway", "amount": 19.40, "plaid_category": ["Fast Food", "Food and Drink"], "day": 21 },
+        { "id": "B023", "merchant_name": "Target", "amount": 76.40, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 15 },
+        { "id": "B024", "merchant_name": "Dave and Busters", "amount": 62.00, "plaid_category": ["Entertainment", "Recreation", "Sports"], "day": 11 },
+        { "id": "B025", "merchant_name": "Shell Gas Station", "amount": 54.00, "plaid_category": ["Travel", "Car Service"], "day": 13 },
+        { "id": "B026", "merchant_name": "Burger King", "amount": 16.80, "plaid_category": ["Fast Food", "Food and Drink"], "day": 22 }
+      ]
+    },
+    "C": {
+      "description": "Dining overspent triggering recovery, travel wide open for trip planning, leisure at risk",
+      "budgets": {
+        "travel": 500,
+        "dining": 300,
+        "groceries": 400,
+        "leisure": 200,
+        "utilities": 250
+      },
+      "transactions": [
+        { "id": "C001", "merchant_name": "Uber", "amount": 28.50, "plaid_category": ["Ride Share", "Car Service"], "day": 6 },
+        { "id": "C002", "merchant_name": "Lyft", "amount": 19.80, "plaid_category": ["Ride Share", "Car Service"], "day": 14 },
+        { "id": "C003", "merchant_name": "Shell Gas Station", "amount": 62.40, "plaid_category": ["Travel", "Car Service"], "day": 10 },
+        { "id": "C004", "merchant_name": "The Capital Grille", "amount": 148.90, "plaid_category": ["Restaurants", "Food and Drink"], "day": 5 },
+        { "id": "C005", "merchant_name": "Nobu Restaurant", "amount": 124.60, "plaid_category": ["Restaurants", "Food and Drink"], "day": 9 },
+        { "id": "C006", "merchant_name": "Starbucks", "amount": 18.40, "plaid_category": ["Coffee Shop", "Food and Drink"], "day": 3 },
+        { "id": "C007", "merchant_name": "Shake Shack", "amount": 42.30, "plaid_category": ["Fast Food", "Restaurants", "Food and Drink"], "day": 12 },
+        { "id": "C008", "merchant_name": "The Melting Pot", "amount": 98.70, "plaid_category": ["Restaurants", "Bar", "Food and Drink"], "day": 17 },
+        { "id": "C009", "merchant_name": "Dunkin Donuts", "amount": 9.80, "plaid_category": ["Coffee Shop", "Food and Drink"], "day": 19 },
+        { "id": "C010", "merchant_name": "Yard House", "amount": 76.40, "plaid_category": ["Restaurants", "Bar", "Food and Drink"], "day": 21 },
+        { "id": "C011", "merchant_name": "Whole Foods Market", "amount": 156.20, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 4 },
+        { "id": "C012", "merchant_name": "Trader Joe's", "amount": 94.80, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 13 },
+        { "id": "C013", "merchant_name": "Safeway", "amount": 78.30, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 20 },
+        { "id": "C014", "merchant_name": "Costco Wholesale", "amount": 134.60, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 8 },
+        { "id": "C015", "merchant_name": "AMC Theaters", "amount": 54.00, "plaid_category": ["Movies", "Entertainment", "Recreation"], "day": 7 },
+        { "id": "C016", "merchant_name": "Spotify", "amount": 15.99, "plaid_category": ["Music", "Entertainment"], "day": 1 },
+        { "id": "C017", "merchant_name": "Netflix", "amount": 22.99, "plaid_category": ["Entertainment", "Recreation"], "day": 1 },
+        { "id": "C018", "merchant_name": "Universal Studios Tickets", "amount": 148.00, "plaid_category": ["Entertainment", "Recreation", "Sports"], "day": 11 },
+        { "id": "C019", "merchant_name": "Mini Golf & Games", "amount": 38.00, "plaid_category": ["Recreation", "Sports", "Entertainment"], "day": 18 },
+        { "id": "C020", "merchant_name": "T-Mobile", "amount": 110.00, "plaid_category": ["Telecommunication Services", "Utilities"], "day": 4 },
+        { "id": "C021", "merchant_name": "Spectrum Internet", "amount": 74.99, "plaid_category": ["Internet Services", "Utilities"], "day": 4 },
+        { "id": "C022", "merchant_name": "Georgia Power", "amount": 88.40, "plaid_category": ["Utilities"], "day": 8 },
+        { "id": "C023", "merchant_name": "Allstate Insurance", "amount": 134.00, "plaid_category": ["Insurance", "Utilities"], "day": 2 },
+        { "id": "C024", "merchant_name": "Wendy's", "amount": 14.80, "plaid_category": ["Fast Food", "Food and Drink"], "day": 22 },
+        { "id": "C025", "merchant_name": "Kroger", "amount": 67.40, "plaid_category": ["Supermarkets and Groceries", "Grocery"], "day": 16 },
+        { "id": "C026", "merchant_name": "Pizza Hut", "amount": 34.20, "plaid_category": ["Restaurants", "Fast Food", "Food and Drink"], "day": 23 }
+      ]
+    }
+  },
+  "category_map": {
+    "travel": ["Airlines and Aviation", "Car Service", "Ride Share", "Hotels", "Lodging", "Travel"],
+    "dining": ["Restaurants", "Food and Drink", "Coffee Shop", "Fast Food", "Bar"],
+    "groceries": ["Supermarkets and Groceries", "Grocery"],
+    "leisure": ["Movies", "Entertainment", "Recreation", "Music", "Sports"],
+    "utilities": ["Utilities", "Telecommunication Services", "Internet Services", "Insurance"]
+  }
+}

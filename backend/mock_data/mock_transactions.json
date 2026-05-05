@@ -1,0 +1,83 @@
+{
+  "scenarios": {
+    "A": {
+      "description": "Moderate household — dining near limit, everything else healthy",
+      "transactions": [
+        {"transaction_id": "A001", "name": "United Airlines", "amount": 240.00, "day": 5,  "category": ["Travel", "Airlines and Aviation"], "personal_finance_category": {"primary": "TRAVEL", "detailed": "TRAVEL_FLIGHTS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A002", "name": "Uber", "amount": 24.50, "day": 12, "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A003", "name": "Lyft", "amount": 18.75, "day": 19, "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A004", "name": "Uber", "amount": 36.80, "day": 24, "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "A010", "name": "Chipotle Mexican Grill", "amount": 28.50, "day": 3,  "category": ["Food and Drink", "Restaurants", "Fast Food"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FAST_FOOD", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A011", "name": "The Cheesecake Factory", "amount": 87.00, "day": 8,  "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A012", "name": "Starbucks", "amount": 6.75, "day": 9,  "category": ["Food and Drink", "Coffee Shop"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_COFFEE", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A013", "name": "DoorDash", "amount": 44.20, "day": 14, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FOOD_DELIVERY_SERVICES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A014", "name": "Sweetgreen", "amount": 16.00, "day": 16, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "HIGH"}},
+        {"transaction_id": "A015", "name": "The Capital Grille", "amount": 82.50, "day": 22, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "A020", "name": "Whole Foods Market", "amount": 124.80, "day": 2,  "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A021", "name": "Trader Joe's", "amount": 87.35, "day": 17, "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "A030", "name": "Netflix", "amount": 23.99, "day": 1,  "category": ["Recreation", "Entertainment"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_TV_AND_MOVIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A031", "name": "Spotify Premium", "amount": 15.99, "day": 1,  "category": ["Recreation", "Music"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_MUSIC_AND_AUDIO", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A032", "name": "AMC Theaters", "amount": 46.00, "day": 11, "category": ["Recreation", "Entertainment", "Movies"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS", "confidence_level": "HIGH"}},
+
+        {"transaction_id": "A040", "name": "Con Edison", "amount": 94.50, "day": 7,  "category": ["Utilities", "Electric"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_GAS_AND_ELECTRICITY", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "A041", "name": "Verizon Wireless", "amount": 80.00, "day": 15, "category": ["Utilities", "Telecommunication Services"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_TELEPHONE_SERVICES", "confidence_level": "VERY_HIGH"}}
+      ]
+    },
+
+    "B": {
+      "description": "Overspending household — dining + leisure over budget, travel at 96%, utilities maxed",
+      "transactions": [
+        {"transaction_id": "B001", "name": "Delta Air Lines", "amount": 378.00, "day": 4,  "category": ["Travel", "Airlines and Aviation"], "personal_finance_category": {"primary": "TRAVEL", "detailed": "TRAVEL_FLIGHTS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B002", "name": "Marriott Hotels", "amount": 68.00, "day": 9,  "category": ["Travel", "Hotels"], "personal_finance_category": {"primary": "TRAVEL", "detailed": "TRAVEL_LODGING", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B003", "name": "Uber", "amount": 34.00, "day": 16, "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "B010", "name": "Nobu Restaurant", "amount": 124.00, "day": 6,  "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B011", "name": "DoorDash", "amount": 56.50, "day": 10, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FOOD_DELIVERY_SERVICES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B012", "name": "Shake Shack", "amount": 31.00, "day": 13, "category": ["Food and Drink", "Restaurants", "Fast Food"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FAST_FOOD", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B013", "name": "Starbucks", "amount": 8.75, "day": 15, "category": ["Food and Drink", "Coffee Shop"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_COFFEE", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B014", "name": "Masa NYC", "amount": 96.00, "day": 20, "category": ["Food and Drink", "Restaurants", "Bar"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B015", "name": "Sweetgreen", "amount": 16.50, "day": 23, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "HIGH"}},
+        {"transaction_id": "B016", "name": "Uber Eats", "amount": 42.25, "day": 27, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FOOD_DELIVERY_SERVICES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "B020", "name": "Whole Foods Market", "amount": 168.50, "day": 3,  "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B021", "name": "Trader Joe's", "amount": 94.20, "day": 18, "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B022", "name": "Target", "amount": 48.80, "day": 25, "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "HIGH"}},
+
+        {"transaction_id": "B030", "name": "Netflix", "amount": 23.99, "day": 1,  "category": ["Recreation", "Entertainment"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_TV_AND_MOVIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B031", "name": "Spotify Premium", "amount": 15.99, "day": 1,  "category": ["Recreation", "Music"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_MUSIC_AND_AUDIO", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B032", "name": "NBA Tickets — StubHub", "amount": 112.00, "day": 5,  "category": ["Recreation", "Entertainment", "Sports"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B033", "name": "AMC Theaters", "amount": 36.00, "day": 12, "category": ["Recreation", "Entertainment", "Movies"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS", "confidence_level": "HIGH"}},
+        {"transaction_id": "B034", "name": "Golf Club Membership", "amount": 38.00, "day": 19, "category": ["Recreation", "Entertainment", "Sports"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS", "confidence_level": "HIGH"}},
+
+        {"transaction_id": "B040", "name": "Con Edison", "amount": 112.00, "day": 8,  "category": ["Utilities", "Electric"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_GAS_AND_ELECTRICITY", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B041", "name": "Verizon Wireless", "amount": 85.00, "day": 15, "category": ["Utilities", "Telecommunication Services"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_TELEPHONE_SERVICES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "B042", "name": "Xfinity Internet", "amount": 53.00, "day": 21, "category": ["Utilities", "Internet Services"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_INTERNET_AND_CABLE", "confidence_level": "VERY_HIGH"}}
+      ]
+    },
+
+    "C": {
+      "description": "Healthy household — all categories well under limit",
+      "transactions": [
+        {"transaction_id": "C001", "name": "Uber", "amount": 43.00, "day": 8,  "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C002", "name": "Lyft", "amount": 51.50, "day": 22, "category": ["Travel", "Ride Share"], "personal_finance_category": {"primary": "TRANSPORTATION", "detailed": "TRANSPORTATION_TAXIS_AND_RIDE_SHARES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "C010", "name": "Sweetgreen", "amount": 22.00, "day": 5,  "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "HIGH"}},
+        {"transaction_id": "C011", "name": "Chipotle Mexican Grill", "amount": 19.50, "day": 11, "category": ["Food and Drink", "Restaurants", "Fast Food"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_FAST_FOOD", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C012", "name": "Starbucks", "amount": 11.75, "day": 14, "category": ["Food and Drink", "Coffee Shop"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_COFFEE", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C013", "name": "Local Diner", "amount": 67.00, "day": 20, "category": ["Food and Drink", "Restaurants"], "personal_finance_category": {"primary": "FOOD_AND_DRINK", "detailed": "FOOD_AND_DRINK_RESTAURANTS", "confidence_level": "HIGH"}},
+
+        {"transaction_id": "C020", "name": "Whole Foods Market", "amount": 153.40, "day": 4,  "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C021", "name": "Trader Joe's", "amount": 127.60, "day": 18, "category": ["Shops", "Supermarkets and Groceries"], "personal_finance_category": {"primary": "GROCERIES", "detailed": "GROCERIES", "confidence_level": "VERY_HIGH"}},
+
+        {"transaction_id": "C030", "name": "Netflix", "amount": 23.99, "day": 1,  "category": ["Recreation", "Entertainment"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_TV_AND_MOVIES", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C031", "name": "AMC Theaters", "amount": 36.00, "day": 16, "category": ["Recreation", "Entertainment", "Movies"], "personal_finance_category": {"primary": "ENTERTAINMENT", "detailed": "ENTERTAINMENT_SPORTING_EVENTS_AMUSEMENT_PARKS_AND_MUSEUMS", "confidence_level": "HIGH"}},
+
+        {"transaction_id": "C040", "name": "Con Edison", "amount": 104.50, "day": 7,  "category": ["Utilities", "Electric"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_GAS_AND_ELECTRICITY", "confidence_level": "VERY_HIGH"}},
+        {"transaction_id": "C041", "name": "T-Mobile", "amount": 80.00, "day": 15, "category": ["Utilities", "Telecommunication Services"], "personal_finance_category": {"primary": "RENT_AND_UTILITIES", "detailed": "RENT_AND_UTILITIES_TELEPHONE_SERVICES", "confidence_level": "VERY_HIGH"}}
+      ]
+    }
+  }
+}
