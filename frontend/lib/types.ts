@@ -58,14 +58,22 @@ export interface TripMeta {
 }
 
 export interface TBFlight {
+  id?:           string;
   airline:       string;
-  flight_number: string;
-  price:         number;
-  depart_time:   string;
-  arrive_time:   string;
+  flight_number?:string;
+  airline_code?: string;
+  airline_logo?: string;
+  price?:        number;
+  price_total?:  number;
+  price_per_person?: number;
+  depart_time?:  string;
+  arrive_time?:  string;
+  departure_time?: string;
+  arrival_time?: string;
   duration:      string;
   stops:         number;
-  booking_url:   string;
+  booking_url?:  string;
+  booking_link?: string;
 }
 
 export interface TBHotel {

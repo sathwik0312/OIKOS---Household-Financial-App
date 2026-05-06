@@ -33,9 +33,9 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
   }, [tripMeta]);
 
   const handleSelect = (f: TBFlight) => {
-    const price         = f.price ?? 0;
-    const sortedByPrice = [...flights].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-    const cheapestPrice = sortedByPrice[0]?.price ?? price;
+    const price         = f.price_total ?? f.price ?? 0;
+    const sortedByPrice = [...flights].sort((a, b) => (a.price_total ?? a.price ?? 0) - (b.price_total ?? b.price ?? 0));
+    const cheapestPrice = sortedByPrice[0]?.price_total ?? sortedByPrice[0]?.price ?? price;
     const saving        = price - cheapestPrice;
     const remaining     = tripMeta.budget_available - price;
 
@@ -43,7 +43,7 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
     if (flights.length === 1) {
       msg = `Only one flight available for these dates. $${price.toLocaleString()} locked in. $${remaining.toLocaleString()} left for hotel and activities.`;
     } else if (saving === 0) {
-      const saved = ((sortedByPrice[sortedByPrice.length - 1]?.price ?? price) - price);
+      const saved = ((sortedByPrice[sortedByPrice.length - 1]?.price_total ?? sortedByPrice[sortedByPrice.length - 1]?.price ?? price) - price);
       msg = `Smart choice — you saved $${saved.toLocaleString()} vs the priciest option. $${remaining.toLocaleString()} remaining for hotels and activities.`;
     } else {
       msg = `This is the pricier option. That leaves $${remaining.toLocaleString()} for hotels and activities — still workable if you pick wisely.`;
@@ -75,7 +75,7 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
 
       <div className="grid gap-3 sm:grid-cols-3">
         {flights.map((f, i) => {
-          const isSelected = selectedFlight?.flight_number === f.flight_number && selectedFlight?.depart_time === f.depart_time;
+          const isSelected = selectedFlight?.id === f.id || (selectedFlight?.departure_time === f.departure_time && selectedFlight?.airline === f.airline);
           return (
             <div
               key={i}
@@ -92,7 +92,7 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
                     {f.airline || "Airlines"}
                   </p>
                   <p className="text-xs" style={{ color: "#4B5563" }}>
-                    {f.flight_number}
+                    {f.airline_code || f.flight_number || "Flight"}
                   </p>
                 </div>
                 <Plane size={18} style={{ color: isSelected ? "#6C63FF" : "#4B5563" }} />
@@ -100,11 +100,11 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
 
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-sm font-bold" style={{ color: "#F1F1F3" }}>
-                  {f.depart_time}
+                  {f.departure_time || f.depart_time}
                 </span>
                 <ArrowRight size={12} style={{ color: "#4B5563" }} />
                 <span className="text-sm font-bold" style={{ color: "#F1F1F3" }}>
-                  {f.arrive_time}
+                  {f.arrival_time || f.arrive_time}
                 </span>
               </div>
 
@@ -117,10 +117,10 @@ export default function StepFlight({ tripMeta, selectedFlight, onSelect }: Props
 
               <div className="mb-4">
                 <p className="text-lg font-bold" style={{ color: "#6C63FF" }}>
-                  ${(f.price ?? 0).toLocaleString()}
+                  ${(f.price_total ?? f.price ?? 0).toLocaleString()}
                 </p>
                 <p className="text-xs" style={{ color: "#6B7280" }}>
-                  ${Math.round((f.price ?? 0) / Math.max(tripMeta.travelers, 1)).toLocaleString()} per person
+                  ${(f.price_per_person ?? Math.round((f.price_total ?? f.price ?? 0) / Math.max(tripMeta.travelers, 1))).toLocaleString()} per person
                 </p>
               </div>
 

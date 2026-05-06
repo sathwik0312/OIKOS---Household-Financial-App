@@ -41,8 +41,8 @@ function buildDays(
     const items: DayItinerary["items"] = [];
 
     if (dayNum === 1 && flight) {
-      items.push({ time: flight.depart_time || "Depart", type: "flight", title: `Depart ${tripMeta.origin_iata}`,  detail: `${flight.airline} ${flight.flight_number}`.trim() });
-      items.push({ time: flight.arrive_time || "Arrive", type: "flight", title: `Arrive ${tripMeta.destination}`, detail: `${flight.duration || ""} · ${flight.stops === 0 ? "Direct" : `${flight.stops} stop(s)`}` });
+      items.push({ time: flight.departure_time || flight.depart_time || "Depart", type: "flight", title: `Depart ${tripMeta.origin_iata}`,  detail: `${flight.airline} ${flight.airline_code || flight.flight_number || ""}`.trim() });
+      items.push({ time: flight.arrival_time || flight.arrive_time || "Arrive", type: "flight", title: `Arrive ${tripMeta.destination}`, detail: `${flight.duration || ""} · ${flight.stops === 0 ? "Direct" : `${flight.stops} stop(s)`}` });
       if (hotel) items.push({ time: "2:00 PM", type: "hotel", title: `Check in: ${hotel.name}`, detail: hotel.address || "" });
     }
 
@@ -93,7 +93,7 @@ export default function StepSummary({ tripMeta, selectedFlight, selectedHotel, s
 
   const days = buildDays(tripMeta, selectedFlight, selectedHotel, selectedPlaces, slots);
 
-  const flightCost  = selectedFlight?.price ?? 0;
+  const flightCost  = selectedFlight?.price_total ?? selectedFlight?.price ?? 0;
   const hotelCost   = selectedHotel?.total_price ?? 0;
   const foodEst     = slots.filter((s) => s.restaurant).length * tripMeta.travelers * 45;
   const calcTotal   = totalCost || (flightCost + hotelCost + foodEst);
@@ -110,11 +110,11 @@ export default function StepSummary({ tripMeta, selectedFlight, selectedHotel, s
     travelers:        tripMeta.travelers,
     flight: {
       airline:              selectedFlight?.airline || "",
-      flight_number:        selectedFlight?.flight_number || "",
+      flight_number:        selectedFlight?.airline_code || selectedFlight?.flight_number || "",
       origin:               tripMeta.origin_iata,
       destination:          tripMeta.destination_iata,
-      depart_time:          selectedFlight?.depart_time || "",
-      arrive_time:          selectedFlight?.arrive_time || "",
+      depart_time:          selectedFlight?.departure_time || selectedFlight?.depart_time || "",
+      arrive_time:          selectedFlight?.arrival_time || selectedFlight?.arrive_time || "",
       return_flight_number: "",
       return_depart_time:   "",
       price:                flightCost,

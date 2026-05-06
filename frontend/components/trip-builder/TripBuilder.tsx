@@ -28,7 +28,7 @@ export default function TripBuilder({ tripMeta, householdName, onDone }: Props) 
   const [confirmedResult,     setConfirmedResult]     = useState<ConfirmResult | null>(null);
 
   const totalCost =
-    (selectedFlight?.price        ?? 0) +
+    (selectedFlight?.price_total  ?? selectedFlight?.price ?? 0) +
     (selectedHotel?.total_price   ?? 0) +
     slots.filter((s) => s.restaurant).length * (tripMeta.travelers ?? 1) * 45;
 
