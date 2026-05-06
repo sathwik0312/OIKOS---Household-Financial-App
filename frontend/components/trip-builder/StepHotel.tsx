@@ -33,7 +33,7 @@ export default function StepHotel({ tripMeta, selectedFlight, selectedHotel, onS
   }, [tripMeta]);
 
   const handleSelect = (h: TBHotel) => {
-    const flightCost  = selectedFlight?.price ?? 0;
+    const flightCost  = selectedFlight?.price_total ?? selectedFlight?.price ?? 0;
     const combined    = flightCost + (h.total_price ?? 0);
     const remaining   = tripMeta.budget_available - combined;
     const overBudget  = remaining < 0;
@@ -73,7 +73,7 @@ export default function StepHotel({ tripMeta, selectedFlight, selectedHotel, onS
       <div className="grid gap-3 sm:grid-cols-3">
         {hotels.map((h, i) => {
           const isSelected = selectedHotel?.name === h.name;
-          const flightCost = selectedFlight?.price ?? 0;
+          const flightCost = selectedFlight?.price_total ?? selectedFlight?.price ?? 0;
           const combined   = flightCost + (h.total_price ?? 0);
           const overBudget = combined > tripMeta.budget_available;
 
@@ -146,7 +146,7 @@ export default function StepHotel({ tripMeta, selectedFlight, selectedHotel, onS
 
       {/* Over-budget warning with back button */}
       {selectedHotel && selectedFlight &&
-        (selectedFlight.price + selectedHotel.total_price) > tripMeta.budget_available && (
+        ((selectedFlight.price_total ?? selectedFlight.price ?? 0) + selectedHotel.total_price) > tripMeta.budget_available && (
         <div
           className="mt-4 p-4 rounded-xl flex items-center justify-between"
           style={{ backgroundColor: "#EF444418", border: "1px solid #EF444430" }}
